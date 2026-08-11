@@ -1,0 +1,152 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-vt323), "VT323", monospace;
+  --font-serif: var(--font-press-start), "Press Start 2P", monospace;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+}
+
+:root {
+  --background: #121212;
+  --foreground: #ffffff;
+  --card: #1a1a2e;
+  --card-foreground: #ffffff;
+  --popover: #1a1a2e;
+  --popover-foreground: #ffffff;
+  --primary: #1973c8;
+  --primary-foreground: #ffffff;
+  --secondary: #1e1e30;
+  --secondary-foreground: #ffffff;
+  --muted: #1e1e30;
+  --muted-foreground: rgba(255, 255, 255, 0.65);
+  --accent: #1e1e30;
+  --accent-foreground: #ffffff;
+  --destructive: #ff4444;
+  --border: #ffffff;
+  --input: #1e1e30;
+  --ring: rgba(25, 115, 200, 0.5);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+}
+
+/* ---- PIXEL ART GLOBAL ---- */
+img {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ---- Pixel border utility ---- */
+.pixel-border {
+  border: 4px solid #ffffff;
+  box-shadow: 6px 6px 0 #000000;
+}
+
+.pixel-border-sm {
+  border: 2px solid #ffffff;
+  box-shadow: 3px 3px 0 #000000;
+}
+
+/* ---- Pixel button ---- */
+.pixel-btn {
+  border: 3px solid #ffffff;
+  box-shadow: 4px 4px 0 #000000;
+  transition: transform 0.1s, box-shadow 0.1s;
+  image-rendering: pixelated;
+}
+.pixel-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #000000;
+}
+.pixel-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000000;
+}
+
+/* ---- Floating animation ---- */
+@keyframes pixelFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.pixel-float {
+  animation: pixelFloat 3s steps(8) infinite;
+}
+
+/* ---- Pixel card ---- */
+.pixel-card {
+  border: 3px solid #ffffff;
+  box-shadow: 5px 5px 0 #000000;
+  background: #1a1a2e;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.pixel-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 #000000;
+}
+
+/* ---- Reveal ---- */
+.reveal {
+  opacity: 1;
+  transform: translateY(24px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Glow text ---- */
+.text-glow {
+  text-shadow: 0 0 10px rgba(25, 115, 200, 0.5), 0 0 20px rgba(25, 115, 200, 0.2);
+}
