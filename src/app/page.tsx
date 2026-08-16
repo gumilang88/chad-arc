@@ -89,9 +89,12 @@ export default function Home() {
                 {n.label}
               </a>
             ))}
-            <span className="font-[family-name:var(--font-press-start)] text-[10px] text-white/40">
-              FLIP <span className="text-[8px]">(COMING SOON)</span>
-            </span>
+            <a
+              href="/flip"
+              className="font-[family-name:var(--font-press-start)] text-[10px] text-white hover:text-[#1973c8] transition-colors"
+            >
+              FLIP
+            </a>
             <span className="font-[family-name:var(--font-press-start)] text-[10px] text-white/40">
               BINARY <span className="text-[8px]">(COMING SOON)</span>
             </span>
@@ -122,6 +125,12 @@ export default function Home() {
                 {n.label}
               </a>
             ))}
+            <a
+              href="/flip"
+              className="font-[family-name:var(--font-press-start)] text-[10px] text-white w-fit"
+            >
+              FLIP
+            </a>
             <button className="pixel-btn px-4 py-2 font-[family-name:var(--font-press-start)] text-[10px] bg-[#1973c8] text-black w-fit">
               CONNECT
             </button>
