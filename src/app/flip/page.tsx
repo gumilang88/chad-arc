@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { BrowserProvider, Contract, formatUnits, parseUnits } from "ethers";
 import Image from "next/image";
+import Link from "next/link";
 import { ARC, USDC_ARC, HOUSE_WALLET } from "@/lib/arc";
 
 const USDC_ABI = [
@@ -24,6 +25,18 @@ type Wait =
   | { s: "win" }
   | { s: "lose" }
   | { s: "error"; msg: string };
+
+// Minimal injected wallet (EIP-1193) type
+interface InjectedEthereum {
+  request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
+  on?: (event: string, handler: (...args: unknown[]) => void) => void;
+}
+
+declare global {
+  interface Window {
+    ethereum?: InjectedEthereum;
+  }
+}
 
 const ORACLE = ["0.5", "1", "2", "5", "10", "25", "50", "100"];
 
@@ -77,7 +90,7 @@ export default function FlipPage() {
   }, [getContracts]);
 
   async function connect() {
-    const eth = (window as any).ethereum;
+    const eth = window.ethereum;
     if (!eth) {
       setWait({ s: "error", msg: "No injected wallet (Rabby / MetaMask) found." });
       return;
@@ -90,8 +103,8 @@ export default function FlipPage() {
           method: "wallet_switchEthereumChain",
           params: [{ chainId: ARC.chainIdHex }],
         });
-      } catch (err: any) {
-        if (err.code === 4902) {
+      } catch (err) {
+        if ((err as { code?: number }).code === 4902) {
           await eth.request({
             method: "wallet_addEthereumChain",
             params: [{ ...ARC }],
@@ -108,8 +121,8 @@ export default function FlipPage() {
       // live refresh on chain/account change
       eth.on?.("chainChanged", () => window.location.reload());
       eth.on?.("accountsChanged", () => window.location.reload());
-    } catch (e: any) {
-      setWait({ s: "error", msg: e.message || "Connect failed" });
+    } catch (e) {
+      setWait({ s: "error", msg: (e as Error).message || "Connect failed" });
     }
   }
 
@@ -167,19 +180,18 @@ export default function FlipPage() {
         pushLog(`No luck. Coin landed ${res}.`);
       }
       refreshBalance();
-    } catch (e: any) {
-      setWait({ s: "error", msg: e.reason || e.message || "Flip failed" });
+    } catch (e) {
+      const err = e as { reason?: string; message?: string };
+      setWait({ s: "error", msg: err.reason || err.message || "Flip failed" });
     }
   }
-
-  const heads = side === "HEADS";
 
   return (
     <div className="min-h-screen bg-[#121212] text-white font-[family-name:var(--font-vt323)]">
       {/* NAV */}
       <nav className="sticky top-0 w-full z-50 bg-[#121212] pixel-border-sm border-t-0 border-l-0 border-r-0">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <Image
               src="/images/chad-logo-nav.png"
               alt="CHAD"
@@ -189,10 +201,10 @@ export default function FlipPage() {
               unoptimized
             />
             <span className="font-[family-name:var(--font-press-start)] text-xs text-[#1973c8]">CHAD</span>
-          </a>
+          </Link>
           <div className="hidden md:flex items-center gap-6">
-            <a href="/#about" className="font-[family-name:var(--font-press-start)] text-[10px] text-white hover:text-[#1973c8] transition-colors">ABOUT</a>
-            <a href="/flip" className="font-[family-name:var(--font-press-start)] text-[10px] text-[#1973c8]">FLIP</a>
+            <Link href="/#about" className="font-[family-name:var(--font-press-start)] text-[10px] text-white hover:text-[#1973c8] transition-colors">ABOUT</Link>
+            <Link href="/flip" className="font-[family-name:var(--font-press-start)] text-[10px] text-[#1973c8]">FLIP</Link>
             <span className="font-[family-name:var(--font-press-start)] text-[10px] text-white/40">BINARY <span className="text-[8px]">(COMING SOON)</span></span>
           </div>
         </div>
