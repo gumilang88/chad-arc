@@ -181,14 +181,12 @@ export default function Home() {
             />
             ADD $CHAD TO WALLET
           </button>
-          <a
-            href="https://radardex.pro/#0xa6c213c2c0e0939bbf7d57cbdd5c540426b01ea8"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="pixel-btn px-8 py-3 font-[family-name:var(--font-press-start)] text-[11px] bg-white text-black text-center"
+          <button
+            type="button"
+            className="pixel-btn px-8 py-3 font-[family-name:var(--font-press-start)] text-[11px] bg-white text-black text-center cursor-not-allowed"
           >
-            BUY ON RADARDEX
-          </a>
+            buy chad
+          </button>
         </div>
 
         {/* Yes balloon */}
@@ -308,14 +306,6 @@ export default function Home() {
               className="pixel-btn inline-block px-6 py-2 font-[family-name:var(--font-press-start)] text-[10px] bg-[#1973c8] text-white"
             >
               X (TWITTER)
-            </a>
-            <a
-              href="https://t.me/ChadonArc"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pixel-btn inline-block px-6 py-2 font-[family-name:var(--font-press-start)] text-[10px] bg-[#1973c8] text-white"
-            >
-              TELEGRAM
             </a>
           </div>
 
