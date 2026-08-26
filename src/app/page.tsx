@@ -185,7 +185,7 @@ export default function Home() {
             type="button"
             className="pixel-btn px-8 py-3 font-[family-name:var(--font-press-start)] text-[11px] bg-white text-black text-center cursor-not-allowed"
           >
-            buy chad
+            BUY CHAD TOKEN
           </button>
         </div>
 
